@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CloudinaryContext, Image } from "cloudinary-react";
 import axios from "axios";
+import classes from "./ImageList.module.css";
 
 const ImageList = () => {
   const [images, setImages] = useState([]);
@@ -30,6 +31,7 @@ const ImageList = () => {
             height="300"
             crop="fit"
             key={img.public_id}
+            id={img.public_id.toString()}
           />
         );
       })}
