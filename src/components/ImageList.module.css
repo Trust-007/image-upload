@@ -1,5 +1,51 @@
-img {
-  width: 200px;
-  height: 200px;
+.grid_container {
+  max-width: 100%;
+  margin-inline: 5%;
+  margin-block: 50px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 20px;
+  column-gap: -20px;
+}
+
+.card {
+  position: relative;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 60;
+}
+
+.pic {
   object-fit: cover;
+  position: relative;
+  transition: 1s;
+}
+
+.delete {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.7s;
+  background-color: transparent;
+  height: 200px;
+  width: 100%;
+  opacity: 0;
+  z-index: 200;
+}
+
+.delete:hover {
+  opacity: 1;
+}
+
+.delete:hover + .pic {
+  transform: scale(1.3);
 }
