@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
 import Modal from "./Modal";
+import fetchImages from "../general/fetchImages";
 import classes from "./AddImage.module.css";
 
 const AddImage = (props) => {
@@ -22,14 +23,23 @@ const AddImage = (props) => {
       formData.append("upload_preset", "finessecodes");
       axios
         .post(
-          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+          `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload/`,
           formData
         )
         .then((res) => {
-          console.log(res);
           if (res.status === 200) {
             setIsLoading(false);
-            setMessage("Upload successful");
+            setMessage(
+              "Upload successful, might take a few seconds to reflect."
+            );
+            const fetchUploadedPictures = async () => {
+              setIsLoading(true);
+              const response = await fetchImages();
+              props.getImages(response.data.resources);
+              setIsLoading(false);
+            };
+
+            fetchUploadedPictures();
           } else {
             setIsLoading(false);
             setMessage("Upload failed");

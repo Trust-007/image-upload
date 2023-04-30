@@ -8,6 +8,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
+  z-index: 300;
 }
 
 .home_add a {
@@ -81,6 +82,11 @@ h1 span {
   width: 100%;
   opacity: 0;
   z-index: 200;
+}
+
+.loader_container {
+  text-align: center;
+  margin-top: 40px;
 }
 
 .delete_btn {
