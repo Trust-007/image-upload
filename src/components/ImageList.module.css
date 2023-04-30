@@ -36,7 +36,7 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-h1 span {
+.gallery_h1 span {
   font-weight: lighter;
 }
 
@@ -49,7 +49,6 @@ h1 span {
   align-items: flex-end;
   justify-content: center;
   gap: 20px;
-  column-gap: -20px;
 }
 
 .card {
@@ -105,4 +104,22 @@ h1 span {
 .delete:hover + .pic {
   transform: scale(1.3);
   filter: blur(5px);
+}
+
+@media (max-width: 700px) {
+  .grid_container {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .grid_container {
+    grid-template-columns: auto;
+    margin-inline: 0;
+  }
+
+  .gallery_h1 {
+    font-size: 25px;
+    margin-inline: 5%;
+  }
 }
