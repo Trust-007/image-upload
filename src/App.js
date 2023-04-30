@@ -1,5 +1,4 @@
 import ImageList from "./components/ImageList";
-import AddImage from "./components/AddImage";
 import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
 
@@ -13,7 +12,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/images" element={<ImageList />} />
-      <Route path="/add-image" element={<AddImage />} />
     </Routes>
   );
 }

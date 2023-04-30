@@ -19,15 +19,12 @@
   color: white;
 }
 
-.links {
-  width: 30%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 40px;
-}
-
-.links a {
+.link {
+  margin-top: 50px;
   text-decoration: none;
   color: white;
+  background-color: teal;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 30px;
 }

@@ -1,0 +1,27 @@
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirm {
+  font-style: italic;
+  font-size: 17px;
+  color: teal;
+}
+
+.upload input {
+  width: 200px;
+  text-align: center;
+  margin-block: 20px;
+}
+
+.upload button {
+  outline: none;
+  background-color: teal;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}

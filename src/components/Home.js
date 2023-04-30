@@ -5,10 +5,9 @@ const Home = () => {
   return (
     <div className={classes.home}>
       <h1>Welcome to FinessePics</h1>
-      <div className={classes.links}>
-        <Link to="/images">Images</Link>
-        <Link to="/add-image">Add Image</Link>
-      </div>
+      <Link to="/images" className={classes.link}>
+        Gallery
+      </Link>
     </div>
   );
 };
