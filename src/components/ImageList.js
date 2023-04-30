@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import crypto from "crypto";
-import AddImage from "./AddImage";
-import fetchImages from "../general/fetchImages";
-import LoadingSpinner from "./LoadingSpinner";
-import classes from "./ImageList.module.css";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import crypto from 'crypto';
+import AddImage from './AddImage';
+import fetchImages from '../general/fetchImages';
+import LoadingSpinner from './LoadingSpinner';
+import classes from './ImageList.module.css';
 
 const ImageList = () => {
   const [images, setImages] = useState([]);
@@ -24,9 +24,9 @@ const ImageList = () => {
   }, []);
 
   const generateSHA1 = (data) => {
-    const hash = crypto.createHash("sha1");
+    const hash = crypto.createHash('sha1');
     hash.update(data);
-    return hash.digest("hex");
+    return hash.digest('hex');
   };
 
   const generateSignature = (publicId, apiSecret) => {
@@ -35,7 +35,7 @@ const ImageList = () => {
   };
 
   const deleteImageHandler = (e) => {
-    if (window.confirm("Are you sure you want to delete?") === true) {
+    if (window.confirm('Are you sure you want to delete?') === true) {
       const publicId = e.target.parentElement.nextSibling.id;
 
       const deleteImage = async () => {
@@ -48,9 +48,9 @@ const ImageList = () => {
         try {
           const response = await axios.post(url, {
             public_id: publicId,
-            signature: signature,
+            signature,
             api_key: apiKey,
-            timestamp: timestamp,
+            timestamp,
           });
           if (response.status === 200) {
             setIsLoading(true);
@@ -59,10 +59,10 @@ const ImageList = () => {
             setImages(response.data.resources);
             setIsLoading(false);
             alert(
-              "Image has been deleted, might take a few seconds to reflect."
+              'Image has been deleted, might take a few seconds to reflect.',
             );
           } else {
-            alert("something went wrong.");
+            alert('something went wrong.');
             return;
           }
         } catch (error) {
@@ -71,8 +71,6 @@ const ImageList = () => {
       };
 
       deleteImage();
-    } else {
-      return;
     }
   };
 
@@ -100,7 +98,9 @@ const ImageList = () => {
         <AddImage onHide={hideModalHandler} getImages={getImages} />
       )}
       <h1 className={classes.gallery_h1}>
-        Photo <span>Gallery</span>
+        Photo
+        {' '}
+        <span>Gallery</span>
       </h1>
       {isLoading ? (
         <div className={classes.loader_container}>
@@ -110,27 +110,25 @@ const ImageList = () => {
         <div>
           {images !== [] ? (
             <div className={classes.grid_container}>
-              {images.map((img) => {
-                return (
-                  <div className={classes.card} key={img.public_id}>
-                    <div className={classes.delete}>
-                      <button
-                        type="button"
-                        className={classes.delete_btn}
-                        onClick={deleteImageHandler}
-                      >
-                        Delete Picture
-                      </button>
-                    </div>
-                    <img
-                      src={`http://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/c_fit,h_300,w_300/${img.public_id}`}
-                      alt={img.public_id}
-                      id={img.public_id.toString()}
-                      className={classes.pic}
-                    />
+              {images.map((img) => (
+                <div className={classes.card} key={img.public_id}>
+                  <div className={classes.delete}>
+                    <button
+                      type="button"
+                      className={classes.delete_btn}
+                      onClick={deleteImageHandler}
+                    >
+                      Delete Picture
+                    </button>
                   </div>
-                );
-              })}
+                  <img
+                    src={`http://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/c_fit,h_300,w_300/${img.public_id}`}
+                    alt={img.public_id}
+                    id={img.public_id.toString()}
+                    className={classes.pic}
+                  />
+                </div>
+              ))}
             </div>
           ) : (
             <h2>No Images Added</h2>

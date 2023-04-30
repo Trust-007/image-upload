@@ -1,6 +1,6 @@
-import ImageList from "./components/ImageList";
-import Home from "./components/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
+import ImageList from './components/ImageList';
+import Home from './components/Home';
 
 function App() {
   // const [images, setImages] = useState([])

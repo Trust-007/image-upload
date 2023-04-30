@@ -1,66 +1,69 @@
-import { useState } from "react";
-import axios from "axios";
-import LoadingSpinner from "./LoadingSpinner";
-import Modal from "./Modal";
-import fetchImages from "../general/fetchImages";
-import classes from "./AddImage.module.css";
+import { useState } from 'react';
+import axios from 'axios';
+import LoadingSpinner from './LoadingSpinner';
+import Modal from './Modal';
+import fetchImages from '../general/fetchImages';
+import classes from './AddImage.module.css';
 
 const AddImage = (props) => {
-  const [file, setFile] = useState("");
+  const { onHide, getImages } = props;
+  const [file, setFile] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const getfileHandler = (event) => {
-    setMessage("");
+    setMessage('');
     setFile(event.target.files[0]);
   };
 
   const addPicHandler = () => {
-    if (file !== "") {
+    if (file !== '') {
       setIsLoading(true);
       const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "finessecodes");
+      formData.append('file', file);
+      formData.append('upload_preset', 'finessecodes');
       axios
         .post(
           `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload/`,
-          formData
+          formData,
         )
         .then((res) => {
           if (res.status === 200) {
             setIsLoading(false);
             setMessage(
-              "Upload successful, might take a few seconds to reflect."
+              'Upload successful, might take a few seconds to reflect.',
             );
             const fetchUploadedPictures = async () => {
               setIsLoading(true);
               const response = await fetchImages();
-              props.getImages(response.data.resources);
+              getImages(response.data.resources);
               setIsLoading(false);
             };
 
             fetchUploadedPictures();
           } else {
             setIsLoading(false);
-            setMessage("Upload failed");
+            setMessage('Upload failed');
           }
         })
         .catch((err) => {
           throw new Error(err);
         });
     } else {
-      setMessage("Please select a file to upload");
+      setMessage('Please select a file to upload');
     }
   };
   return (
-    <Modal onHide={props.onHide}>
+    <Modal onHide={onHide}>
       <div className={classes.upload}>
-        {message !== "" && <p className={classes.confirm}>{message}</p>}
+        {message !== '' && <p className={classes.confirm}>{message}</p>}
         <input type="file" accept="image/*" onChange={getfileHandler} />
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <button onClick={addPicHandler}>Add Picture</button>
+          <button type="button" onClick={addPicHandler}>
+            Add Picture
+          </button>
         )}
       </div>
     </Modal>
