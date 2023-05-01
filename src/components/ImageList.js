@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import crypto from 'crypto';
+import { SHA256, enc } from 'crypto-js';
 import AddImage from './AddImage';
 import fetchImages from '../general/fetchImages';
 import LoadingSpinner from './LoadingSpinner';
@@ -23,11 +23,7 @@ const ImageList = () => {
     fetchUploadedPictures();
   }, []);
 
-  const generateSHA1 = (data) => {
-    const hash = crypto.createHash('sha1');
-    hash.update(data);
-    return hash.digest('hex');
-  };
+  const generateSHA1 = (data) => SHA256(data).toString(enc.Hex);
 
   const generateSignature = (publicId, apiSecret) => {
     const timestamp = new Date().getTime();
